@@ -71,7 +71,7 @@ def minimize(dfa: DFA) -> DFA:
     # Minimized DFA
     transitions = {}
     accept_states = set()
-    start_state = dfa.start_state
+    start_state = None
 
     for partition in partitions:
         for a in dfa.alphabet:
