@@ -19,9 +19,10 @@ This algorithm determines if two DFAs are equivalent by:
 
 ### 3. DFA Minimization (`minimize`)
 This algorithm minimizes a DFA by:
+- Remove state unreachable from the start state.
 - Finding all equivalent state pairs using the table filling algorithm
 - Using a Disjoint Set Union (DSU) data structure to group equivalent states
-- Outputting the minimal state partition
+- Creating a new minimized DFA with transitions between partitions, new start state and new accepting states
 
 ## Installation
 
