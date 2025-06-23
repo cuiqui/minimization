@@ -57,17 +57,22 @@ def equivalent(dfa_1: DFA, dfa_2: DFA) -> bool:
 def minimize(dfa: DFA) -> DFA:
 
     equivalent_states = table_filling(dfa)
+    distinguishable_states = dfa.states - {
+        p for s in equivalent_states for p in s
+    }
 
     dsu = DSU()
     for p, q in equivalent_states:
         dsu.union(p, q)
-    
+    for p in distinguishable_states:
+        dsu.union(p, p)
+    partitions = {frozenset(p) for p in dsu.subsets()}
+
     # Minimized DFA
     transitions = {}
     accept_states = set()
-    start_state = None
+    start_state = dfa.start_state
 
-    partitions = {frozenset(p) for p in dsu.subsets()}
     for partition in partitions:
         for a in dfa.alphabet:
             # We take one representative of each partition
