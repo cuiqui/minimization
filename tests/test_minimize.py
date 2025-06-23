@@ -108,7 +108,9 @@ def test_minimize_minimal_dfa():
         accept_states={'C', 'F', 'I'}
     )
 
-    minimized_dfa = minimize(minimize(dfa))
-
-    assert len(minimized_dfa.states) == 3
-    assert len(minimized_dfa.transition) == 6
+    for _ in range(10):
+        minimized_dfa = minimize(dfa)
+        assert equivalent(minimized_dfa, dfa)
+        assert len(minimized_dfa.states) == 3
+        assert len(minimized_dfa.transition) == 6
+        dfa = minimized_dfa
