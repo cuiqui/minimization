@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools >= 45"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "minimization"
+version = "0.1.0"
+description = "DFA minimization algorithms"
+authors = [
+    { name = "Juan Schandin" },
+    { name = "Ariel Piñeiro" }
+]
+requires-python = ">=3.10"
+dependencies = []
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Private :: Do Not Upload"
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
