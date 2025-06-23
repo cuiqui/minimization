@@ -31,8 +31,7 @@ def test_minimize_figure_4_8():
     )
     assert equivalent(dfa, minimized_dfa)
     assert minimized_dfa.start_state == frozenset({'A', 'E'})
-    assert minimized_dfa.states == {AE, C, G, BH, DF
-    }
+    assert minimized_dfa.states == {AE, C, G, BH, DF}
     assert minimized_dfa.transition == {
         (AE, '0'): BH,
         (AE, '1'): DF,
