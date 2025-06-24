@@ -48,10 +48,8 @@ def equivalent(dfa_1: DFA, dfa_2: DFA) -> bool:
     dfa = dfa_1 | dfa_2
     equivalent_states = table_filling(dfa)
 
-    for p, q in equivalent_states:
-        if {p, q} == {dfa_1.start_state, dfa_2.start_state}:
-            return True
-    return False
+    s1, s2 = dfa_1.start_state, dfa_2.start_state
+    return (s1, s2) in equivalent_states or (s2, s1) in equivalent_states
 
 
 def minimize(dfa: DFA) -> DFA:
