@@ -47,6 +47,53 @@ def test_minimize_figure_4_8():
     assert minimized_dfa.accept_states == {C}
 
 
+def test_minimize_figure_4_14():
+    # Figure 4.14: A DFA to be minimize
+    dfa = DFA(
+        states={'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'},
+        alphabet={'0', '1'},
+        transition={
+            ('A', '0'): 'B', ('A', '1'): 'A',
+            ('B', '0'): 'A', ('B', '1'): 'C',
+            ('C', '0'): 'D', ('C', '1'): 'B',
+            ('D', '0'): 'D', ('D', '1'): 'A',
+            ('E', '0'): 'D', ('E', '1'): 'F',
+            ('F', '0'): 'G', ('F', '1'): 'E',
+            ('G', '0'): 'F', ('G', '1'): 'G',
+            ('H', '0'): 'G', ('H', '1'): 'D',
+        },
+        start_state='A',
+        accept_states={'D'}
+    )
+
+    minimized_dfa = minimize(dfa)
+
+    D, BF, H, GA, CE = (
+        frozenset({'D'}),
+        frozenset({'B', 'F'}),
+        frozenset({'H'}),
+        frozenset({'G', 'A'}),
+        frozenset({'C', 'E'})
+    )
+
+    assert equivalent(dfa, minimized_dfa)
+    assert minimized_dfa.start_state == GA
+    assert minimized_dfa.states == {D, BF, H, GA, CE}
+    assert minimized_dfa.transition == {
+        (D, '0'): D,
+        (D, '1'): GA,
+        (BF, '0'): GA,
+        (BF, '1'): CE,
+        (H, '0'): GA,
+        (H, '1'): D,
+        (GA, '0'): BF,
+        (GA, '1'): GA,
+        (CE, '0'): D,
+        (CE, '1'): BF
+    }
+    assert minimized_dfa.accept_states == {D}
+
+
 def test_minimize_figure_4_15():
     # Figure 4.15: Another DFA to minimize
     dfa = DFA(

@@ -34,3 +34,30 @@ def test_dfas_are_equivalent():
     )
 
     assert equivalent(dfa_1, dfa_2)
+
+
+def test_dfas_are_not_equivalent():
+    alphabet = {0, 1}
+    states = {'EVEN', 'ODD'}
+    start_state = 'EVEN'
+    transition = {
+        ('EVEN', 0): 'ODD',
+        ('EVEN', 1): 'EVEN',
+        ('ODD', 0): 'EVEN',
+        ('ODD', 1): 'ODD'
+    }
+    odd_number_of_zeros = DFA(
+        states=states,
+        alphabet=alphabet,
+        transition=transition,
+        start_state=start_state,
+        accept_states={'ODD'}
+    )
+    even_number_of_zeros = DFA(
+        states=states,
+        alphabet=alphabet,
+        transition=transition,
+        start_state=start_state,
+        accept_states={'EVEN'}
+    )
+    assert not equivalent(odd_number_of_zeros, even_number_of_zeros)

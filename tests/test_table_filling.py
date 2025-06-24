@@ -32,6 +32,33 @@ def test_table_filling_figure_4_8():
     }
 
 
+def test_table_filling_figure_4_14():
+    # Figure 4.14: A DFA to be minimize
+    dfa = DFA(
+        states={'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'},
+        alphabet={'0', '1'},
+        transition={
+            ('A', '0'): 'B', ('A', '1'): 'A',
+            ('B', '0'): 'A', ('B', '1'): 'C',
+            ('C', '0'): 'D', ('C', '1'): 'B',
+            ('D', '0'): 'D', ('D', '1'): 'A',
+            ('E', '0'): 'D', ('E', '1'): 'F',
+            ('F', '0'): 'G', ('F', '1'): 'E',
+            ('G', '0'): 'F', ('G', '1'): 'G',
+            ('H', '0'): 'G', ('H', '1'): 'D',
+        },
+        start_state='A',
+        accept_states={'D'}
+    )
+    equivalent_states = {frozenset(pair) for pair in table_filling(dfa)}
+
+    assert equivalent_states == {
+        frozenset({'B', 'F'}),
+        frozenset({'G', 'A'}),
+        frozenset({'C', 'E'})
+    }
+
+
 def test_table_filling_figure_4_15():
     # Figure 4.15: Another DFA to minimize
     dfa = DFA(
